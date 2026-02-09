@@ -17,4 +17,4 @@
 - Security: SHA256 password encryption, JWT authentication
 - SMTP: Email OTP verification
 
-# AI Just for Documentation and Help for debugging
+### AI Just for Documentation and Help for debugging
