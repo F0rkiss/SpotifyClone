@@ -5,7 +5,7 @@
 ### Frontend
 
 - TypeScript + React (Hooks)
-- Plain CSS
+- Tailwind CSS
 - State management: React Context / Jotai
 
 ### Backend
