@@ -7,15 +7,15 @@ import (
 )
 
 type Config struct { 
-	DatabaseName string `env:"DB_NAME`
-	DatabaseHost string `env:"DB_HOST`
-	DatabasePort string `env:"DB_PORT`
-	DatabaseUser string `env:"DB_USER`
-	DatabasepPassword string `env:"DB_PASSWORD`
+	DatabaseName string `env:"DB_NAME"`
+	DatabaseHost string `env:"DB_HOST"`
+	DatabasePort string `env:"DB_PORT"`
+	DatabaseUser string `env:"DB_USER"`
+	DatabasepPassword string `env:"DB_PASSWORD"`
 }
 
 func (c* Config) DatabaseUrl() string {
-	return fmt.Sprint("postgresql://%s:%s@%s:%s/%s?slmode=disable",
+	return fmt.Sprintf("postgresql://%s:%s@%s:%s/%s?slmode=disable",
 		c.DatabaseUser,
 		c.DatabasepPassword,
 		c.DatabasePort,

@@ -1,26 +1,33 @@
 package database
 
 import (
-	"context"
-	"database/sql"
 	"fmt"
-	"spotify-clone/config"
-	"time"
+	"spotify-clone/helpers"
+
+	"gorm.io/driver/postgres"
+	"gorm.io/gorm"
 )
 
-func newPostgresDB(conf *config.Config) (*sql.DB, error) {
-	dsn := conf.DatabaseUrl()
-	db, err := sql.Open("postgres", dsn)
-	if err != nil {
-		return nil, fmt.Errorf("failed to open database connection: %w", err)
-	}
+const (
+    Host     = "localhost"
+    User     = "damarpradnyana"
+    Password = "secret"
+    DBName   = "spotifyclone"
+    Port     = 5432
+)
 
-	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
-	defer cancel()
+func ConnectDB() *gorm.DB{
+	dsn := fmt.Sprintf("host=%s user=%s password=%s dbname=%s port=%d sslmode=disable", 
+		Host,
+		User,
+		Password,
+		DBName,
+		Port)
 
-	if err := db.PingContext(ctx); err != nil {
-		return nil, fmt.Errorf("failed to ping database connection: %w", err)
-	}
+	db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})
 
-	return db, nil
+	helpers.CheckPanic(err)
+
+
+	return db;
 }
