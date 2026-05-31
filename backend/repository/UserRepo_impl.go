@@ -8,10 +8,9 @@ import (
 
 type userRepositoryImpl struct {
 	db *gorm.DB
-	
 }
 
-func NewUserRepository (db *gorm.DB) UserRepositoryInterface {
+func NewUserRepository(db *gorm.DB) UserRepositoryInterface {
 	return &userRepositoryImpl{
 		db: db,
 	}
@@ -21,9 +20,18 @@ func (r *userRepositoryImpl) Create(user *models.User) error {
 	return r.db.Create(user).Error
 }
 
-func (r *userRepositoryImpl) GetByEmail(email string) (*models.User, error) { 
+func (r *userRepositoryImpl) GetByEmail(email string) (*models.User, error) {
 	var user models.User
-	if err := r.db.Where("email = ? ", email).First(&user).Error; err != nil{
+	if err := r.db.Where("email = ? ", email).First(&user).Error; err != nil {
+		return nil, err
+	}
+	return &user, nil
+}
+
+func (r *userRepositoryImpl) GetByIdentifier(identifier string) (*models.User, error) {
+	var user models.User
+
+	if err := r.db.Where("email = ? OR username = ?", identifier, identifier).First(&user).Error; err != nil {
 		return nil, err
 	}
 	return &user, nil
